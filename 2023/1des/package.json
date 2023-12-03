@@ -1,0 +1,23 @@
+{
+  "name": "1des",
+  "version": "1.0.0",
+  "description": "first project",
+  "main": "1des-1.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JonAlex99/AdventOfCode.git"
+  },
+  "author": "Jón Alex Pétursson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JonAlex99/AdventOfCode/issues"
+  },
+  "homepage": "https://github.com/JonAlex99/AdventOfCode#readme",
+  "dependencies": {
+    "fs": "^0.0.1-security"
+  }
+}
