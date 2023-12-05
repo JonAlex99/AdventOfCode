@@ -1,9 +1,11 @@
 import fs from "fs";
 
-const filePath = "./1des-2.txt";
+const filePath = "./1des-demo2.txt";
+// const filePath = "./1des-2.txt";
 
 function fixTheNumbers(line){
     var tempLine = line.toLowerCase();
+    const numberWords = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
     var firstNumbers = {};
     var lastNumbers = {};
     var firstNumber;
@@ -30,6 +32,46 @@ function fixTheNumbers(line){
     return tempLine;
 }
 
+function findTheIntegers(line){
+
+}
+
+function findTheStrings(line){
+    const numberWords = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+    var lowHighDictionary = {};
+    lowHighDictionary['lowest'] = {};
+    lowHighDictionary['highest'] = {};
+    var lowestIndex = Number.MAX_VALUE;
+    var highestIndex = Number.MIN_VALUE;
+    numberWords.forEach((number) => {
+        var startIndex = 0;
+
+
+        while (startIndex < line.length){
+            const index = line.indexOf(number, startIndex);
+
+            if (index === -1){
+                break;
+            }
+
+            if(lowestIndex > index){
+                lowHighDictionary['lowest'][number] = index;
+                lowestIndex = index;
+            }
+
+            if(highestIndex < index){
+                lowHighDictionary['highest'][number] = index;
+                highestIndex = index;
+            }
+
+            startIndex = index + number.length;
+        }
+    })
+
+    console.log(lowHighDictionary);
+    return lowHighDictionary;
+}
+
 fs.readFile(filePath, 'utf8', (err, data) => {
     if(err){
         console.error(err);
@@ -41,7 +83,7 @@ fs.readFile(filePath, 'utf8', (err, data) => {
     var totalSum = 0;
     lines.forEach((line) => {
         line = line.replace(/(\r\n|\n|\r)/gm, "");
-        line = fixTheNumbers(line);
+        line = findTheStrings(line);
         var first = 0;
         var last = 0;
         var total = 0;
@@ -61,7 +103,7 @@ fs.readFile(filePath, 'utf8', (err, data) => {
         
         total = parseInt(first)*10 + parseInt(last);
         totalSum += total;
-        console.log(`Line: ${line}, first: ${first}, last: ${last}, total: ${total}, totalSum: ${totalSum}`);
+        // console.log(`Line: ${line}, first: ${first}, last: ${last}, total: ${total}, totalSum: ${totalSum}`);
     });
 })
 
