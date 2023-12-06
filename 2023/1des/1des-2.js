@@ -3,35 +3,6 @@ import fs from "fs";
 // const filePath = "./1des-demo2.txt";
 const filePath = "./1des-2.txt";
 
-// function fixTheNumbers(line){
-//     var tempLine = line.toLowerCase();
-//     const numberWords = ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
-//     var firstNumbers = {};
-//     var lastNumbers = {};
-//     var firstNumber;
-//     var lastNumber;
-
-//     if(tempLine.includes("one") || tempLine.includes("1")){
-
-//         tempLine.indexOf("one") < tempLine.indexOf("1") ? firstNumber = tempLine.indexOf("one") : firstNumber = tempLine.indexOf("1");
-//         tempLine.lastIndexOf("one") > tempLine.lastIndexOf("1") ? lastNumber = tempLine.lastIndexOf("one") : lastNumber = tempLine.lastIndexOf("1");
-        
-//     }
-    
-
-
-//     tempLine = tempLine.replaceAll("one", '1')
-//     tempLine = tempLine.replaceAll("two", '2')
-//     tempLine = tempLine.replaceAll("three", '3')
-//     tempLine = tempLine.replaceAll("four", '4')
-//     tempLine = tempLine.replaceAll("five", '5')
-//     tempLine = tempLine.replaceAll("six", '6')
-//     tempLine = tempLine.replaceAll("seven", '7')
-//     tempLine = tempLine.replaceAll("eight", '8')
-//     tempLine = tempLine.replaceAll("nine", '9')
-//     return tempLine;
-// }
-
 function findTheIntegers(line){
     var lowHighDictionary = {};
     lowHighDictionary['lowest'] = {};
@@ -99,6 +70,17 @@ function findTheStrings(line){
     return lowHighDictionary;
 }
 
+// function writeFailed(line){
+//     const filePathFailed = "./failed.txt";
+//     fs.writeFile(filePathFailed, line, (err) => {
+//         if(err){
+//             console.error(err);
+//             return;
+//         }
+
+//     })
+// }
+
 fs.readFile(filePath, 'utf8', (err, data) => {
     if(err){
         console.error(err);
@@ -150,8 +132,9 @@ fs.readFile(filePath, 'utf8', (err, data) => {
 
         typeof(firstInt) === "undefined" ? firstIntIndex = Number.MAX_VALUE : 0;
         typeof(firstString) === "undefined" ? firstStringIndex = Number.MAX_VALUE : 0;
-        typeof(lastInt) === "undefined" ? lastIntIndex = Number.MIN_VALUE : 0;
-        typeof(lastString) === "undefined" ? lastStringIndex = Number.MIN_VALUE : 0;
+        typeof(lastInt) === "undefined" ? lastIntIndex = -1 : 0;
+        typeof(lastString) === "undefined" ? lastStringIndex = -1 : 0;
+
 
         if (firstStringIndex < firstIntIndex){
             total = numberDict[firstString]*10;
@@ -165,25 +148,16 @@ fs.readFile(filePath, 'utf8', (err, data) => {
         }
         else{
             total += parseInt(lastInt)
-            console.log("komst hingað " + lastStringIndex + " " + lastIntIndex)
         }
 
+        // if (isNaN(total)) writeFailed(line);
+
         totalSum += total;
-        //if (stringstringInLine['lowest'][0])
-
-
-        console.log("---------------------");
-        console.log(line);
-        console.log(stringInLine);
-        console.log(intInLine);
-        console.log(total);
-        console.log(totalSum);
-        // total = parseInt(first)*10 + parseInt(last);
-        // totalSum += total;
-        // console.log(`Line: ${line}, first: ${first}, last: ${last}, total: ${total}, totalSum: ${totalSum}`);
+        console.log(`Line: ${line}, total: ${total}, totalSum: ${totalSum}`);
     });
 })
 
 
 
 "53326"
+"54019"
