@@ -1,7 +1,7 @@
 import fs from "fs";
 
-const filePath = "./1des-demo2.txt";
-// const filePath = "./1des-2.txt";
+// const filePath = "./1des-demo2.txt";
+const filePath = "./1des-2.txt";
 
 // function fixTheNumbers(line){
 //     var tempLine = line.toLowerCase();
@@ -55,8 +55,8 @@ function findTheIntegers(line){
         }
     }
 
-    console.log(line)
-    console.log(lowHighDictionary);
+    // console.log(line)
+    // console.log(lowHighDictionary);
     return lowHighDictionary;
 }
 
@@ -104,33 +104,82 @@ fs.readFile(filePath, 'utf8', (err, data) => {
         console.error(err);
         return;
     }
+
+    const numberDict = { 
+        "one" : 1,
+        "two" : 2,
+        "three" : 3,
+        "four" : 4,
+        "five" : 5,
+        "six" : 6,
+        "seven" : 7,
+        "eight" : 8,
+        "nine" : 9
+     }
     
     const lines = data.split('\n');
     
     var totalSum = 0;
+    var firstString = 0;
+    var firstStringIndex = 0;
+    var firstInt = 0;
+    var firstIntIndex = 0;
+    var lastString = 0;
+    var lastStringIndex = 0;
+    var lastInt = 0;
+    var lastIntIndex = 0;
+    var total = 0;
     lines.forEach((line) => {
         line = line.replace(/(\r\n|\n|\r)/gm, "");
         var stringInLine = findTheStrings(line);
         var intInLine = findTheIntegers(line);
-        var first = 0;
-        var last = 0;
-        var total = 0;
-        for (var i = 0; i < line.length; i++){
-            if (!isNaN(line[i])){
-                first = line[i];
-                break;
-            }
-        }
+
+        firstString = Object.keys(stringInLine['lowest'])[0];
+        firstStringIndex = stringInLine['lowest'][Object.keys(stringInLine['lowest'])[0]];
+
+        lastString = Object.keys(stringInLine['highest'])[0];
+        lastStringIndex = stringInLine['highest'][Object.keys(stringInLine['highest'])[0]];
+
+        firstInt = Object.keys(intInLine['lowest'])[0];
+        firstIntIndex = intInLine['lowest'][Object.keys(intInLine['lowest'])[0]];
+
+        lastInt = Object.keys(intInLine['highest'])[0];
+        lastIntIndex = intInLine['highest'][Object.keys(intInLine['highest'])[0]];
         
-        for (var i = line.length - 1; i >= 0; i--){
-            if (!isNaN(line[i])){
-                last = line[i];
-                break;
-            }
+        total = 0;
+
+        typeof(firstInt) === "undefined" ? firstIntIndex = Number.MAX_VALUE : 0;
+        typeof(firstString) === "undefined" ? firstStringIndex = Number.MAX_VALUE : 0;
+        typeof(lastInt) === "undefined" ? lastIntIndex = Number.MIN_VALUE : 0;
+        typeof(lastString) === "undefined" ? lastStringIndex = Number.MIN_VALUE : 0;
+
+        if (firstStringIndex < firstIntIndex){
+            total = numberDict[firstString]*10;
         }
-        
-        total = parseInt(first)*10 + parseInt(last);
+        else{
+            total = parseInt(firstInt)*10;
+        }
+
+        if (lastStringIndex > lastIntIndex){
+            total += numberDict[lastString]
+        }
+        else{
+            total += parseInt(lastInt)
+            console.log("komst hingað " + lastStringIndex + " " + lastIntIndex)
+        }
+
         totalSum += total;
+        //if (stringstringInLine['lowest'][0])
+
+
+        console.log("---------------------");
+        console.log(line);
+        console.log(stringInLine);
+        console.log(intInLine);
+        console.log(total);
+        console.log(totalSum);
+        // total = parseInt(first)*10 + parseInt(last);
+        // totalSum += total;
         // console.log(`Line: ${line}, first: ${first}, last: ${last}, total: ${total}, totalSum: ${totalSum}`);
     });
 })
