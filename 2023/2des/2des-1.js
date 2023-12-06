@@ -1,4 +1,3 @@
-import { match } from 'assert';
 import fs from 'fs'
 
 const filePath = "./2des-input.txt"
@@ -33,7 +32,6 @@ fs.readFile(filePath, 'utf8', (err, data) => {
         
         console.log(gameNumber) 
         console.log(balls)
-        var gameIterations = 0;
         currentGame = {"red" : 0, "green" : 0, "blue" : 0}
         balls.forEach(ball => {
             const matches = ball.matchAll(regexBall);
@@ -46,27 +44,5 @@ fs.readFile(filePath, 'utf8', (err, data) => {
         if (isGameValid) sumOfGameNumbers += parseInt(gameNumber, 10);
         console.log(currentGame)
         console.log(sumOfGameNumbers)
-        // for (const match of gameNumber){
-        //     const [, number, color] = match;
-        //     currentGame[color] = number;
-        //     console.log(line);
-        //     console.log(number + " " + color);
-        // }
-        // console.log("---------------------")
     })
-
-    // lines.forEach((line) => {
-    //     line = line.replace(/(\r\n|\n|\r)/gm, "");
-    //     console.log(line);
-
-    //     var games = line.split(':');
-    //     var allBalls = games[1].split(';');
-    //     console.log(games);
-    //     console.log(allBalls);
-    //     allBalls.forEach((setOfBalls) => {
-    //         console.log(setOfBalls);
-    //         var eachBall = setOfBalls.split(',')
-    //         console.log(eachBall)
-    //     });
-    // });
 });
