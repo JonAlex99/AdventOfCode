@@ -1,7 +1,8 @@
 import fs from "fs";
+import { type } from "os";
 
-const filePath = "./3des-input.txt"
-// const filePath = "./3des-demo.txt"
+// const filePath = "./3des-input.txt"
+const filePath = "./3des-demo.txt"
 
 fs.readFile(filePath, 'utf8', (err, data) => {
     if(err){
@@ -15,10 +16,13 @@ fs.readFile(filePath, 'utf8', (err, data) => {
     const symbolRegex = /[^a-zA-Z0-9\s.]/g
 
     let sumOfValidNumbers = 0
+    let sumOfMultipliedNumbers = 0
 
     let match;
     let symbolLocation = new Array(lines.length);
     let innerArray = lines[0].length;
+
+    let starSymbolArray = {}
 
     for (let i = 0; i < symbolLocation.length; i++){
         symbolLocation[i] = [];
@@ -60,6 +64,15 @@ fs.readFile(filePath, 'utf8', (err, data) => {
                         if(j >= 0 && j < lines.length){
                             // console.log("\t\t" + "this is the current character index " + j)
                             if (symbolLocation[i][j] === 1){
+                                if(lines[i][j] === "*"){
+                                    let location = i + " " + j
+                                    if (typeof starSymbolArray[location] === "undefined"){
+                                        starSymbolArray[location] = [currentNumber.number]
+                                    }
+                                    else{
+                                        starSymbolArray[location].push(currentNumber.number)
+                                    }
+                                }
                                 foundSymbol = true;
                                 sumOfValidNumbers += currentNumber.number;
                                 console.log(sumOfValidNumbers + " " + currentNumber.number)
@@ -74,4 +87,10 @@ fs.readFile(filePath, 'utf8', (err, data) => {
         })
 
     }
+    for (const [key, value] of Object.entries(starSymbolArray)) {
+        if(value.length === 2){
+            sumOfMultipliedNumbers += value[0]*value[1];
+        }
+      }
+    console.log(sumOfMultipliedNumbers)
 });
